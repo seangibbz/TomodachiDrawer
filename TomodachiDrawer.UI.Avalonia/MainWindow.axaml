@@ -187,7 +187,7 @@
               <local:SafeNumericUpDown
                 x:Name="TSPTimeLimitUpDown"
                 Minimum="0.1"
-                Maximum="30"
+                Maximum="3600"
                 Increment="0.1"
                 Value="0.5"
                 Width="110"
