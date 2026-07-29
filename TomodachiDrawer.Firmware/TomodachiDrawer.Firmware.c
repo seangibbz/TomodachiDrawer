@@ -4,8 +4,15 @@
 #include "hardware/pio.h"
 #include "ws2812.pio.h"
 
-// Waveshare RP2040 Zero onboard NeoPixel
-#define NEOPIXEL_PIN 16
+// Board-specific LED / NeoPixel pins. CMake can override these for target boards.
+#ifndef TOMODACHI_NEOPIXEL_PIN
+#define TOMODACHI_NEOPIXEL_PIN 16
+#endif
+#ifndef TOMODACHI_STATUS_LED_PIN
+#define TOMODACHI_STATUS_LED_PIN 25
+#endif
+
+#define NEOPIXEL_PIN TOMODACHI_NEOPIXEL_PIN
 #define NEOPIXEL_PIO pio0
 #define NEOPIXEL_SM  0
 
@@ -134,13 +141,13 @@ static void neopixel_set_rgb(uint8_t r, uint8_t g, uint8_t b) {
 }
 
 static void boringpixel_init(void) {
-    gpio_init(25);
-    gpio_set_dir(25, GPIO_OUT);
+    gpio_init(TOMODACHI_STATUS_LED_PIN);
+    gpio_set_dir(TOMODACHI_STATUS_LED_PIN, GPIO_OUT);
 }
 
 static void boringpixel_set(bool on)
 {
-    gpio_put(25, on);
+    gpio_put(TOMODACHI_STATUS_LED_PIN, on);
 }
 
 // delays precisely but while running tud_task so the usb is active.

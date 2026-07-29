@@ -20,7 +20,7 @@ if (EXISTS ${picoVscode})
     include(${picoVscode})
 endif()
 # ====================================================================================
-set(PICO_BOARD waveshare_rp2040_zero CACHE STRING "Board type")
+set(PICO_BOARD pico2_w CACHE STRING "Board type")
 
 # Pull in Raspberry Pi Pico SDK (must be before project)
 include(pico_sdk_import.cmake)
@@ -60,6 +60,11 @@ target_link_libraries(TomodachiDrawer.Firmware
 
 target_include_directories(TomodachiDrawer.Firmware PRIVATE
         ${CMAKE_CURRENT_LIST_DIR}
+)
+
+target_compile_definitions(TomodachiDrawer.Firmware PRIVATE
+        TOMODACHI_NEOPIXEL_PIN=16
+        TOMODACHI_STATUS_LED_PIN=25
 )
 
 pico_add_extra_outputs(TomodachiDrawer.Firmware)
